@@ -1,0 +1,16 @@
+{
+  "name": "ジャンケンマン フィーバー",
+  "short_name": "ジャンケンマン",
+  "description": "駄菓子屋の定番メダルゲーム「ジャンケンマン フィーバー」をブラウザで再現したファンメイドのゲーム",
+  "lang": "ja",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#17131d",
+  "theme_color": "#17131d",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

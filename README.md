@@ -54,3 +54,8 @@ window.JKM_VOICE_FILES = {
 | `js/sound.js` | 効果音（Web Audio）と声（音声合成） |
 | `js/game.js` | ゲーム進行・確率・保存（localStorage） |
 | `sounds/voices.js` | 声の音源ファイルの指定（空欄なら音声合成） |
+| `images/og-image.png` | SNS でシェアしたときのプレビュー画像（1200×630） |
+| `favicon.ico` / `icon.svg` | ブラウザのタブのアイコン |
+| `apple-touch-icon.png` / `icons/` / `site.webmanifest` | ホーム画面に追加したときのアイコンと名前 |
+
+公開 URL（`https://janken-pon-alpha.vercel.app/`）は `index.html` の `canonical`・`og:url`・`og:image`・`twitter:image` に書いてあります。URL が変わったときはこの 4 か所を直してください。
