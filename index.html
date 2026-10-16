@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ジャンケンマン フィーバー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=M+PLUS+Rounded+1c:wght@500;800&family=Yusei+Magic&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="room-light" id="roomLight" aria-hidden="true"></div>
+
+<main class="stage" id="stage">
+  <div class="cabinet-wrap" id="cabinetWrap">
+    <div class="cabinet" id="cabinet">
+
+      <div class="beacon" id="beacon" aria-hidden="true">
+        <div class="beacon-dome"><div class="beacon-beam"></div></div>
+        <div class="beacon-base"></div>
+      </div>
+      <div class="balloon" id="balloon" aria-hidden="true"></div>
+
+      <div class="shell">
+        <div class="lid"></div>
+        <div class="door">
+          <div class="panel-frame">
+            <svg id="panel" role="img" aria-label="ジャンケンマン フィーバーの盤面"></svg>
+          </div>
+          <button class="keyhole" id="keyhole" type="button" aria-label="店員メニューを開く" title="店員メニュー"></button>
+          <span class="hinge hinge-top"></span>
+          <span class="hinge hinge-bottom"></span>
+
+          <div class="plate plate-yen">
+            <i class="screw tl"></i><i class="screw tr"></i><i class="screw bl"></i><i class="screw br"></i>
+            <span class="sticker sticker-yen">10円</span>
+            <button class="slot-btn" id="slotYen" type="button" aria-label="10円を入れる" title="10円を入れる"><span class="slot"></span></button>
+            <span class="lever"></span>
+            <span class="return-cup"></span>
+          </div>
+          <div class="plate plate-medal">
+            <i class="screw tl"></i><i class="screw tr"></i><i class="screw bl"></i><i class="screw br"></i>
+            <span class="sticker sticker-medal">メダル<small>-IN-</small></span>
+            <button class="slot-btn" id="slotMedal" type="button" aria-label="メダルを入れる" title="メダルを入れる"><span class="slot"></span></button>
+            <span class="lever"></span>
+            <span class="return-cup small"></span>
+          </div>
+          <div class="plate plate-blank">
+            <i class="screw tl"></i><i class="screw tr"></i><i class="screw bl"></i><i class="screw br"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="deck">
+        <div class="deck-plate">
+          <div class="howto">
+            <b>あそびかた</b>
+            <p>メダルか10円を入れてネ！ジャンケンポンの声にあわせてグー・チョキ・パーのボタンをおしてネ！「かち」のときルーレットがまわり、とまったところのかずのメダルがでてくるョ！</p>
+          </div>
+          <button class="hand-btn gu" data-hand="0" type="button" aria-label="グー（キー1）">
+            <span class="icon"></span><span class="btn-cap"></span><span class="label">グー</span>
+          </button>
+          <button class="hand-btn choki" data-hand="1" type="button" aria-label="チョキ（キー2）">
+            <span class="icon"></span><span class="btn-cap"></span><span class="label">チョキ</span>
+          </button>
+          <button class="hand-btn pa" data-hand="2" type="button" aria-label="パー（キー3）">
+            <span class="icon"></span><span class="btn-cap"></span><span class="label">パー</span>
+          </button>
+          <div class="staff">
+            <span class="staff-lamp" id="staffLamp"></span>
+            <p>このランプが<br>ついたときは<br><b>係員</b>を<br>および下さい</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lower">
+        <div class="speaker" aria-hidden="true"><i></i><i></i><i></i></div>
+        <button class="tray" id="tray" type="button" aria-label="受け皿のメダルをとる" title="クリックでメダルをとる">
+          <span class="tray-inner" id="trayInner"></span>
+        </button>
+        <div class="kick" aria-hidden="true"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <aside class="hud" id="hud" aria-label="あそびの情報">
+    <section class="hud-main">
+      <div class="meters">
+        <div class="meter">
+          <span class="meter-label">手持ちメダル</span>
+          <span class="meter-value"><b id="hudMedals">10</b><small>枚</small></span>
+        </div>
+        <div class="meter">
+          <span class="meter-label">受け皿</span>
+          <span class="meter-value"><b id="hudTray">0</b><small>枚</small></span>
+          <button class="take" id="btnTake" type="button">とる</button>
+        </div>
+        <div class="meter">
+          <span class="meter-label">つかったお金</span>
+          <span class="meter-value"><b id="hudYen">0</b><small>円</small></span>
+        </div>
+      </div>
+      <div class="insert-row">
+        <button class="insert" id="btnYen" type="button"><i class="coin copper">10</i>10円を入れる</button>
+        <button class="insert" id="btnMedal" type="button"><i class="coin silver"></i>メダルを入れる</button>
+      </div>
+      <p class="hud-msg" id="hudMsg" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="hud-sub">
+      <h2>きょうの成績</h2>
+      <dl class="stats">
+        <div><dt>あそんだ回数</dt><dd id="stPlays">0</dd></div>
+        <div><dt>かち</dt><dd id="stWin">0</dd></div>
+        <div><dt>まけ</dt><dd id="stLose">0</dd></div>
+        <div><dt>あいこ</dt><dd id="stAiko">0</dd></div>
+        <div><dt>払い出し合計</dt><dd id="stPaid">0</dd></div>
+        <div><dt>最高配当</dt><dd id="stBest">—</dd></div>
+      </dl>
+      <div class="toggles">
+        <label class="toggle" for="optVoice"><input type="checkbox" id="optVoice" checked><span>こえ</span></label>
+        <label class="toggle" for="optSfx"><input type="checkbox" id="optSfx" checked><span>効果音</span></label>
+      </div>
+      <p class="voice-note" id="voiceNote" hidden>この端末には日本語の音声がないため、声の代わりにピコピコ音が鳴ります。</p>
+      <p class="keys"><kbd>1</kbd>グー <kbd>2</kbd>チョキ <kbd>3</kbd>パー　<kbd>Space</kbd>コインを入れる　<kbd>T</kbd>受け皿からとる</p>
+      <p class="fine">盤面左下のカギ穴を押すと店員メニュー（設定・ホッパー補充）が開きます。サンワイズ「ジャンケンマン フィーバー」（1987年）をファンが再現したもので、メーカーとは関係ありません。</p>
+    </section>
+  </aside>
+</main>
+
+<dialog class="op" id="opMenu" aria-labelledby="opTitle">
+  <form method="dialog" class="op-body">
+    <h2 id="opTitle">店員メニュー</h2>
+    <fieldset class="op-setting">
+      <legend>設定（数字が大きいほど出やすい）</legend>
+      <div class="setting-row" id="settingRow"></div>
+      <p class="op-rate">理論上の払い出し率 <b id="opRate">85%</b></p>
+    </fieldset>
+    <div class="op-line">
+      <span>ホッパー残り <b id="opHopper">300</b>枚</span>
+      <button type="button" id="opRefill">補充する</button>
+    </div>
+    <div class="op-line">
+      <span>読み込んだ声の音源（sounds/voices.js）</span>
+      <b id="opVoices">0 / 7</b>
+    </div>
+    <div class="op-line">
+      <span>メダル・成績を最初に戻す</span>
+      <button type="button" class="danger" id="opReset">データをリセット</button>
+    </div>
+    <button class="op-close" value="close">とじる</button>
+  </form>
+</dialog>
+
+<script src="sounds/voices.js"></script>
+<script src="js/hand.js"></script>
+<script src="js/panel.js"></script>
+<script src="js/sound.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
